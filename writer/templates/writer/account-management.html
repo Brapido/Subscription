@@ -1,0 +1,49 @@
+
+{% extends 'writer/navbar.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+
+        <h3> Update account details </h3>
+
+        <hr>
+        
+        <p> Update your account details below: </p>
+
+        <form method="POST" autocomplete="off">
+            
+            {% csrf_token %}
+
+            {{UpdateUserForm|crispy}}
+
+            <br>
+
+            <input class="btn btn-success w-100 p-2" type="submit" value="Update details"/>
+
+        </form>
+
+        
+    </div>
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout text-center">
+
+        <h3> Account deletion </h3>
+
+        <hr>
+
+        <p> Proceed below to delet your account </p>
+
+        <a href="{% url 'delete-account' %}"> Delete your acccount -> </a>
+
+    </div>
+
+
+
+{% endblock %}
