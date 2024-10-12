@@ -1,0 +1,138 @@
+{% extends 'client/navbar.html' %}
+
+{% block content %}
+
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+    <br>
+
+    <div class="container bg-white shadow-md p-4 form-layout text-center">
+
+        <h5> Subscription plans </h5>
+
+    </div>
+
+    <br> 
+
+    <div class="row">
+
+        <div class="container bg-white shadow-md p-4 form-layout text-center">
+
+            <h5> Standard Subscription </h5>
+
+            <hr>
+            
+            <p> Join us for standard access here: </p>
+
+            <strong> (Limited article access) </strong>
+
+            <hr>
+
+            <div id="paypal-button-container-P-6B3737358P965530NM4C46SA"></div>
+
+            <!-- Client ID -->
+            <script src="https://www.paypal.com/sdk/js?client-id=AQIi8TSkgHrHVbuKx36Xh0l2XDkH7u-P8qwSKLklrEQ73pgGInVlZRRNC9r3i1qJowlSibN1o9PFFOGD&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+            
+            <script>
+                paypal.Buttons({
+                    style: {
+                        shape: 'pill',
+                        color: 'silver',
+                        layout: 'vertical',
+                        label: 'subscribe'
+                    },
+                    createSubscription: function(data, actions) {
+                        return actions.subscription.create({
+                        /* Creates the subscription */
+                        plan_id: 'P-6B3737358P965530NM4C46SA'
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        var current_url = '/client/create-subscription/' + data.subscriptionID + "/Standard"
+                        
+                        // Create a form element
+                        var form = document.createElement('form');
+                        form.method = 'POST';  // Set the form method to POST
+                        form.action = current_url;
+
+                        // Add CSRF token as a hidden input field
+                        var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+                        var csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = 'csrfmiddlewaretoken';
+                        csrfInput.value = csrfToken;
+                        form.appendChild(csrfInput);
+
+                        // Append the form to the document body and submit it
+                        document.body.appendChild(form);
+                        form.submit();
+
+                        // window.open(current_url, '_self')
+                        // alert(data.subscriptionID); // You can add optional success message for the subscriber here
+                    }
+                }).render('#paypal-button-container-P-6B3737358P965530NM4C46SA'); // Renders the PayPal button
+            </script>
+
+        </div>
+
+        <div class="container bg-white shadow-md p-4 form-layout text-center">
+
+            <h5> Premium Subscription </h5>
+
+            <hr>
+            
+            <p> Elevate your experiance with premium here: </p>
+
+            <strong> (Full article access) </strong>
+
+            <hr>
+            
+            <!-- Premium plan logic -->
+
+            <div id="paypal-button-container-P-9NH796962B362113CM4C47UI"></div>
+         
+            <script>
+                paypal.Buttons({
+                    style: {
+                        shape: 'pill',
+                        color: 'gold',
+                        layout: 'vertical',
+                        label: 'subscribe'
+                    },
+                    createSubscription: function(data, actions) {
+                        return actions.subscription.create({
+                        /* Creates the subscription */
+                        plan_id: 'P-9NH796962B362113CM4C47UI'
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        var current_url = '/client/create-subscription/' + data.subscriptionID + "/Premium"
+                                                
+                        // Create a form element
+                        var form = document.createElement('form');
+                        form.method = 'POST';  // Set the form method to POST
+                        form.action = current_url;
+
+                        // Add CSRF token as a hidden input field
+                        var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+                        var csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = 'csrfmiddlewaretoken';
+                        csrfInput.value = csrfToken;
+                        form.appendChild(csrfInput);
+
+                        // Append the form to the document body and submit it
+                        document.body.appendChild(form);
+                        form.submit();
+
+                        // window.open(current_url, '_self')
+                        // alert(data.subscriptionID); // You can add optional success message for the subscriber here
+                    }
+                }).render('#paypal-button-container-P-9NH796962B362113CM4C47UI'); // Renders the PayPal button
+            </script>
+
+        </div>
+
+    </div>
+
+{% endblock %}
