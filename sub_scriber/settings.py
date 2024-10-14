@@ -1,5 +1,5 @@
 # Import Django environ and initialize environment variables
-import environ # type: ignore
+import environ
 
 env = environ.Env()
 
@@ -18,9 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # CSRF_TRUSTED_ORIGINS = [] 
 
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'client',
 
     # AWS S3 integration app
-    'storages',
+    #'storages',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'sub_scriber.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-'''
+
 # SQLite database (development - default)
 DATABASES = {
     'default': {
@@ -95,6 +95,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 '''
 # PostgreSQL database (production)
 import dj_database_url #type: ignore
@@ -104,6 +105,7 @@ DATABASES = {
     'default': dj_database_url.parse(env('DATABASE_URL'))
 
 }
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -158,6 +160,8 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
+
+'''
 # Amazon S3 Configuration
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID') # - Enter your AWS Access Key ID HERE
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY') # - Enter your AWS Secret Access Key ID HERE
@@ -179,6 +183,7 @@ STORAGES = {
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_FILE_OVERWRITE = False
+'''
 
 # PayPal credentials
 SS_CLIENT_ID = env('SS_CLIENT_ID')
